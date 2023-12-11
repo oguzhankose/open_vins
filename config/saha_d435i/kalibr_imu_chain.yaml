@@ -1,0 +1,54 @@
+%YAML:1.0
+
+imu0:
+
+  rostopic: /d435i/imu
+  time_offset: 0.0
+  update_rate: 400.0 # Make sure this is correct
+  
+  # Values from allan plots
+  # https://github.com/rpng/ar_table_dataset
+  # Inflated values (to account for unmodelled effects)
+  #  - white noise multiplied by 2
+  #  - bias random walk multiplied by 10
+
+  # Accelerometer
+  accelerometer_noise_density: 0.05397231 # 0.010794461975369096 
+  accelerometer_random_walk: 0.0019796947863205284 #0.00019796947863205284 
+  # Gyroscope
+  gyroscope_noise_density: 0.000860324 # 0.0001720648143687012 
+  gyroscope_random_walk: 4.908876811031587e-05 # 4.908876811031587e-06 
+
+  model: "kalibr"
+
+  # how to get from Kalibr imu.yaml result file:
+  #   - Tw is imu0:gyroscopes:M:
+  #   - R_IMUtoGYRO: is imu0:gyroscopes:C_gyro_i:
+  #   - Ta is imu0:accelerometers:M:
+  #   - R_IMUtoACC not used by Kalibr
+  #   - Tg is imu0:gyroscopes:A:
+  T_i_b:
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0, 0.0]
+    - [0.0, 0.0, 1.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  Tw:
+    - [1.0118557579734146, 0.0, 0.0]
+    - [-0.004295730684353724, 1.002499348924441, 0.0]
+    - [-0.003180863136184297, 0.005576891779116431, 0.9980680539567269]
+  R_IMUtoGYRO:
+    - [0.999967879864485, 0.005016104598906261, 0.006251234596368864]
+    - [-0.005253524889546317, 0.9992424525792902, 0.03856062032124064]
+    - [-0.006053074884794082, -0.03859222276543282, 0.9992367090066604]
+  Ta:
+    - [0.9934422064523502, 0.0, 0.0]
+    - [-0.005610761218086476, 1.0082663493619197, 0.0]
+    - [0.012814143166310228, -0.049144971213423, 1.011583188191444]
+  R_IMUtoACC:
+    - [ 1.0, 0.0, 0.0 ]
+    - [ 0.0, 1.0, 0.0 ]
+    - [ 0.0, 0.0, 1.0 ]
+  Tg:
+    - [0.0002030660728655824, 0.0010991018504742343, -0.0002699757826492361]
+    - [0.00010371334255909699, -0.0003716660808233994, 8.597554659846685e-06]
+    - [-0.0004572238183041765, 1.543866510544987e-05, 0.0001845710295581741]
